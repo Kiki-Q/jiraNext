@@ -1,13 +1,14 @@
 import React from 'react'
 
-interface user {
+export interface User {
 	name: string
 	id: string
+	token?: string
 }
 
 interface searchProps {
-	users: user[]
-	user: user
+	users: User[]
+	user: User
 	setUser: (param: searchProps['user']) => void
 }
 
@@ -37,7 +38,7 @@ function SearchPanel({ users, user, setUser }: searchProps) {
 				onChange={(e) => handleChange('id', e.target.value)}
 			>
 				<option value=''>负责人</option>
-				{users.map((user: user) => {
+				{users.map((user: User) => {
 					return (
 						<option value={user.id} key={user.id}>
 							{user.name}

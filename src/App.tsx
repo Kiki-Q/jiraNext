@@ -1,15 +1,12 @@
+import { useAuth } from 'context/AuthContext'
 import React from 'react'
-import Form from 'views/form'
-// import MyArray from 'views/MyArray'
-// import MyList from 'views/MyList'
+import Authenticated from 'views/athenticated'
+import UnAuthenticated from 'views/unAuthenticated'
 
 function App() {
+	const { user } = useAuth()
 	return (
-		<div className='App'>
-			{/* <MyList /> */}
-			{/* <MyArray /> */}
-			<Form/>
-		</div>
+		<div className='App'>{user ? <Authenticated /> : <UnAuthenticated />}</div>
 	)
 }
 

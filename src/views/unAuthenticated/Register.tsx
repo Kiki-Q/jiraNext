@@ -2,9 +2,9 @@ import React, { FormEvent } from 'react'
 
 const apiUrl = process.env.REACT_APP_API_URL
 
-function form() {
-	const login = (params: { username: string; password: string }) => {
-		fetch(`${apiUrl}/login`, {
+function Register() {
+	const register = (params: { username: string; password: string }) => {
+		fetch(`${apiUrl}/register`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ function form() {
 			.value
 		const password = (ev.currentTarget.elements[1] as HTMLInputElement)
 			.value
-		login({ username, password })
+		register({ username, password })
 	}
 	return (
 		<form action='' onSubmit={handleSubmit}>
@@ -35,9 +35,9 @@ function form() {
 				<label htmlFor='password'>密码：</label>
 				<input type='password' name='' id='password' />
 			</div>
-			<button>登录</button>
+			<button>注册</button>
 		</form>
 	)
 }
 
-export default form
+export default Register
