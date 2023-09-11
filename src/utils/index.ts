@@ -4,12 +4,12 @@ export const isFalsy = ( value: any ): boolean => {
     return value === 0 ? false : !value
 }
 
-export const cleanObject = ( obj: Object ) => { 
+export const isVoid = (value: unknown) => value === undefined || value === null || value === ''
+
+export const cleanObject = ( obj: { [key: string] : unknown} ) => { 
     let result = { ...obj };
     Object.keys( obj ).forEach( (key)=>{
-        // @ts-ignore
-        if(isFalsy(obj[key])){
-            // @ts-ignore
+        if(isVoid(obj[key])){
             delete result[key]
         }
     } )
@@ -19,6 +19,7 @@ export const cleanObject = ( obj: Object ) => {
 export const useMount = (callback: () => void) => { 
     useEffect(() => {
         callback()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 }
 

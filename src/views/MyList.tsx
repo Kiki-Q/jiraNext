@@ -30,6 +30,8 @@ function MyList() {
 				personId: debounceValue.id,
 			},
 		}).then(setList)
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [debounceValue])
 
 	return (
