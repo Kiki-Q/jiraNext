@@ -1,31 +1,53 @@
 import { useAuth } from 'context/AuthContext'
-import React, { FormEvent, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { Button, Form, Input } from 'antd'
 
 function Login() {
 	const { user, login } = useAuth()
+	interface FieldType {
+		username: string
+		password: string
+	}
 
-	const handleSubmit = (ev: FormEvent<HTMLFormElement>) => {
-		ev.preventDefault()
-		const username = (ev.currentTarget.elements[0] as HTMLInputElement).value
-		const password = (ev.currentTarget.elements[1] as HTMLInputElement).value
-		login({ username, password })
+	const handleSubmit = (values: FieldType) => {
+		// ev.preventDefault()
+		login(values)
 	}
 
 	useEffect(() => {
 		console.log('user=', user)
 	}, [user])
+
 	return (
-		<form action='' onSubmit={handleSubmit}>
-			<div>
-				<label htmlFor='username'>用户名：</label>
-				<input type='text' name='' id='username' />
-			</div>
-			<div>
-				<label htmlFor='password'>密码：</label>
-				<input type='password' name='' id='password' />
-			</div>
-			<button>登录</button>
-		</form>
+		<Form
+			name='basic'
+			labelCol={{ span: 8 }}
+			wrapperCol={{ span: 16 }}
+			style={{ maxWidth: 600 }}
+			initialValues={{ remember: true }}
+			onFinish={handleSubmit}
+			autoComplete='off'
+		>
+			<Form.Item<FieldType>
+				label='用户名'
+				name='username'
+				rules={[{ required: true, message: 'Please input your username!' }]}
+			>
+				<Input type='text' name='' id='username' />
+			</Form.Item>
+			<Form.Item<FieldType>
+				label='密码'
+				name='password'
+				rules={[{ required: true, message: 'Please input your password!' }]}
+			>
+				<Input.Password />
+			</Form.Item>
+			<Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+				<Button type='primary' htmlType='submit'>
+					登录
+				</Button>
+			</Form.Item>
+		</Form>
 	)
 }
 

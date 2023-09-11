@@ -1,40 +1,28 @@
 import SearchPanel from 'components/SearchPanel'
 import ShowList from 'components/SearchPanel/ShowList'
 import React, { useEffect, useState } from 'react'
-import { stringify } from 'qs'
-import { cleanObject, useDebounce, useMount } from 'utils'
-
-const apiURL = process.env.REACT_APP_API_URL
+import { useDebounce, useMount } from 'utils'
+import { useHttp } from 'utils/http'
 
 function MyList() {
 	const [list, setList] = useState([])
 
 	const [users, setUsers] = useState([])
 	const [user, setUser] = useState({ name: '', id: '' })
+	const client = useHttp()
 	const debounceValue = useDebounce(user, 1000)
 
 	useMount(() => {
-		fetch(`${apiURL}/users`).then(async (res) => {
-			if (res.ok) {
-				let data = await res.json()
-				setUsers(data)
-			}
-		})
+		client('/users').then(setUsers)
 	})
 
 	useEffect(() => {
-		fetch(
-			`${apiURL}/projects?${stringify(
-				cleanObject({
-					name: debounceValue.name,
-					personId: debounceValue.id,
-				}),
-			)}`,
-		).then(async (res) => {
-			if (res.ok) {
-				setList(await res.json())
-			}
-		})
+		client('/projects', {
+			data: {
+				name: debounceValue.name,
+				personId: debounceValue.id,
+			},
+		}).then(setList)
 	}, [debounceValue])
 
 	return (
