@@ -4,8 +4,15 @@ import React, { useEffect, useState } from 'react'
 import { useDebounce, useMount } from 'utils'
 import { useHttp } from 'utils/http'
 
+interface Project {
+	id: number
+	name: string
+	personId: number
+	organization: string
+}
+
 function MyList() {
-	const [list, setList] = useState([])
+	const [list, setList] = useState<Project[]>([])
 
 	const [users, setUsers] = useState([])
 	const [user, setUser] = useState({ name: '', id: '' })
