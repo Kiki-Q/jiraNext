@@ -1,4 +1,3 @@
-import { async } from "q"
 import qs from "qs"
 import { cleanObject } from "utils"
 import * as auth from "context/AuthProvider";
@@ -8,7 +7,7 @@ const apiUrl = process.env.REACT_APP_API_URL
 
 interface Config extends RequestInit {
     token ?: string
-    data ?: object
+    data ?: { [key: string] : unknown}
 }
 
 export const http = async (endPoint: string, {data, token, headers, ...custumConfig}: Config = {}) => { 

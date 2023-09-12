@@ -3,16 +3,20 @@ import React, { useEffect } from 'react'
 import { Button, Card, Form, Input } from 'antd'
 import styled from '@emotion/styled'
 
-function Login() {
+function Login({ onError }: { onError: (error: Error) => void }) {
 	const { user, login } = useAuth()
 	interface FieldType {
 		username: string
 		password: string
 	}
 
-	const handleSubmit = (values: FieldType) => {
+	const handleSubmit = async (values: FieldType) => {
 		// ev.preventDefault()
-		login(values)
+		try {
+			await login(values)
+		} catch (e) {
+			onError(e as Error)
+		}
 	}
 
 	useEffect(() => {
@@ -29,20 +33,21 @@ function Login() {
 					style={{ maxWidth: 600 }}
 					initialValues={{ remember: true }}
 					onFinish={handleSubmit}
-					autoComplete='off'
-				>
+					autoComplete='off'>
 					<Form.Item<FieldType>
 						label='用户名'
 						name='username'
-						rules={[{ required: true, message: 'Please input your username!' }]}
-					>
+						rules={[
+							{ required: true, message: 'Please input your username!' },
+						]}>
 						<Input type='text' name='' id='username' />
 					</Form.Item>
 					<Form.Item<FieldType>
 						label='密码'
 						name='password'
-						rules={[{ required: true, message: 'Please input your password!' }]}
-					>
+						rules={[
+							{ required: true, message: 'Please input your password!' },
+						]}>
 						<Input.Password />
 					</Form.Item>
 					<Form.Item wrapperCol={{ offset: 8, span: 16 }}>

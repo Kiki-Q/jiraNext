@@ -1,6 +1,6 @@
 import React from 'react'
 import { Table } from 'antd'
-import type { ColumnsType } from 'antd/es/table'
+import type { ColumnsType, TableProps } from 'antd/es/table'
 
 interface Project {
 	id: number
@@ -9,7 +9,9 @@ interface Project {
 	organization: string
 }
 
-export default function ShowList({ list }: { list: Project[] }) {
+interface ListProps extends TableProps<Project> {}
+
+export default function ShowList({ ...props }: ListProps) {
 	const columns: ColumnsType<Project> = [
 		{
 			title: '项目',
@@ -26,7 +28,7 @@ export default function ShowList({ list }: { list: Project[] }) {
 
 	return (
 		<div>
-			<Table columns={columns} dataSource={list}></Table>
+			<Table columns={columns} {...props}></Table>
 		</div>
 	)
 }
