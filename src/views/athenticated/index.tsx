@@ -1,9 +1,11 @@
 import { useAuth } from 'context/AuthContext'
 import React from 'react'
+import { useDocumentTitle } from 'utils'
 import MyList from 'views/MyList'
 
 function Authenticated() {
 	const { loginOut } = useAuth()
+	useDocumentTitle('项目列表', false)
 
 	return (
 		<div>
