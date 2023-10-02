@@ -57,6 +57,7 @@
 	"devDependencies": {
 		"@craco/craco": "^7.1.0",
 		"@types/react-helmet": "^6.1.6",
+		"@welldone-software/why-did-you-render": "^7.0.1",
 		"eslint-config-prettier": "^9.0.0",
 		"eslint-plugin-prettier": "^5.0.0",
 		"husky": "^8.0.3",
